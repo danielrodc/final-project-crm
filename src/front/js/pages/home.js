@@ -1,14 +1,17 @@
 import React, { useContext } from "react";
 import { Context } from "../store/appContext";
 import "../../styles/home.css";
+import mySvg from "../../img/layered-waves-haikei.svg";
 
 export const Home = () => {
   const { store, actions } = useContext(Context);
-
   return (
     <>
-      <div className="container-fluid d-flex justify-content-center">
-        <div className="card mb-3 mt-3" style={{ maxWidth: 650 + "px" }}>
+      <div
+        className="container-fluid d-flex justify-content-center"
+        style={{ backgroundImage: `url(${mySvg})` }}
+      >
+        <div className="col-10 card mb-3 mt-3">
           <div className="row g-0">
             <div className="col-md-8 d-flex align-items-center">
               <img
