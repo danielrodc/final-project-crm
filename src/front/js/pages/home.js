@@ -1,26 +1,35 @@
 import React, { useContext } from "react";
 import { Context } from "../store/appContext";
-import rigoImageUrl from "../../img/rigo-baby.jpg";
 import "../../styles/home.css";
 
 export const Home = () => {
-	const { store, actions } = useContext(Context);
+  const { store, actions } = useContext(Context);
 
-	return (
-		<div className="text-center mt-5">
-			<h1>Hello Rigo!!</h1>
-			<p>
-				<img src={rigoImageUrl} />
-			</p>
-			<div className="alert alert-info">
-				{store.message || "Loading message from the backend (make sure your python backend is running)..."}
-			</div>
-			<p>
-				This boilerplate comes with lots of documentation:{" "}
-				<a href="https://start.4geeksacademy.com/starters/react-flask">
-					Read documentation
-				</a>
-			</p>
-		</div>
-	);
+  return (
+    <>
+      <div className="container-fluid d-flex justify-content-center">
+        <div className="card mb-3 mt-3" style={{ maxWidth: 650 + "px" }}>
+          <div className="row g-0">
+            <div className="col-md-8 d-flex align-items-center">
+              <img
+                src="https://fjwp.s3.amazonaws.com/blog/wp-content/uploads/2022/10/19070942/TED-Talk-What-Is-YOUR-Definition-of-Success.jpg"
+                className="img-fluid rounded-start"
+                alt="..."
+              />
+            </div>
+            <div className="col-md-4">
+              <div className="card-body d-flex flex-column align-items-center justify-content-center h-100">
+                <button type="button" className="btn btn-success mb-3">
+                  Log in
+                </button>
+                <button type="button" className="btn btn-success">
+                  Register
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </>
+  );
 };
