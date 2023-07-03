@@ -37,7 +37,7 @@ export const Navbar = () => {
             </li>
             <li className="nav-item">
               <Link className="nav-link text-success" to="/">
-                Pricing
+                Report an issue
               </Link>
             </li>
           </ul>
