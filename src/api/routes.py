@@ -14,6 +14,13 @@ def get_users():
     users = list(map(lambda item: item.serialize(), users))
     return jsonify(users), 200
 
+@api.route('/users/<int:user_id>', methods=['GET'])
+def get_one_user(user_id = None):
+    if user_id is not None:
+        users = User()
+        users = users.query.get(user_id)
+        return jsonify(users.serialize()), 200
+
 @api.route('/hello', methods=['POST', 'GET'])
 def handle_hello():
 
