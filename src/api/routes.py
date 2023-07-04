@@ -21,6 +21,19 @@ def get_one_user(user_id = None):
         users = users.query.get(user_id)
         return jsonify(users.serialize()), 200
 
+@api.route('/users/<department>', methods=['GET'])
+def get_department(department = None):
+    if department == "hr" or department == "sales" or department == "finances" or department == "trial" or department == "recruitment":
+        users = User()
+        users = users.query.filter_by(department = department).all()
+        users = list(map(lambda item: item.serialize(), users))
+        if len(users) != 0:
+            return jsonify(users), 200
+        else:
+            return jsonify({"message":"no users found"}), 404
+    else:
+        return jsonify({"message":"bad request"}), 400
+
 @api.route('/hello', methods=['POST', 'GET'])
 def handle_hello():
 
