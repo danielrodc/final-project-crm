@@ -19,7 +19,12 @@ def get_one_user(user_id = None):
     if user_id is not None:
         users = User()
         users = users.query.get(user_id)
-        return jsonify(users.serialize()), 200
+        if users is not None:
+            return jsonify(users.serialize()), 200
+        else:
+            return jsonify({"message":"user not found"}), 404
+    else:
+        return jsonify({"message":"bad request"}), 400
 
 @api.route('/users/<department>', methods=['GET'])
 def get_department(department = None):
