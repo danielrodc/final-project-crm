@@ -4,11 +4,11 @@ from enum import Enum
 
 db = SQLAlchemy()
 
-class Roles(Enum):
+class Roles(str, Enum):
     head_of_department = 'Head of Department'
     member = 'Department member'
 
-class Departments(Enum):
+class Departments(str, Enum):
     hr = 'Human Resources'
     sales = 'Sales'
     finances = 'Finances'
@@ -35,6 +35,8 @@ class User(db.Model):
             "name": self.name,
             "last_name": self.last_name,
             "email": self.email,
+            "department": self.department,
+            "role": self.role
             # do not serialize the password, its a security breach
         }
 
