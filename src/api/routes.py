@@ -12,8 +12,11 @@ api = Blueprint('api', __name__)
 def get_users():
     users = User()
     users = users.query.all()
-    users = list(map(lambda item: item.serialize(), users))
-    return jsonify(users), 200
+    if users is not None:
+        users = list(map(lambda item: item.serialize(), users))
+        return jsonify(users), 200
+    else:
+        return jsonify({"message":"no users found"}), 404
 
 @api.route('/users/<int:user_id>', methods=['GET'])
 def get_one_user(user_id = None):
