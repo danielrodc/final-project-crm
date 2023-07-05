@@ -49,8 +49,40 @@ class Virtualassistant(db.Model):
     weekly_availability = db.Column(db.Integer, nullable=False)
     created_at = db.Column(db.DateTime, default=datetime.utcnow)
 
+    def __repr__(self):
+        return f'<Virtual Assistant {self.name}>'
+
+    def serialize(self):
+        return {
+            "id": self.id,
+            "name": self.name,
+            "last_name": self.last_name,
+            "hourly_rate": self.hourly_rate,
+            "weekly_availability": self.weekly_availability
+        }
+
 class Project(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     project_name = db.Column(db.String(100), unique=False, nullable=False)
     account_manager_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
     assistant_id = db.Column(db.Integer, db.ForeignKey('virtualassistant.id'), nullable=False)
+    customer_id = db.Column(db.Integer, db.ForeignKey('customer.id'), nullable=False)
+
+class Customer(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    company_name = db.Column(db.String(30), nullable=False)
+    company_address = db.Column(db.String(80), nullable=False)
+    country = db.Column(db.String(20), nullable=False)
+    representative_name = db.Column(db.String(20), nullable=False)
+
+    def __repr__(self):
+        return f'<Customer {self.representative_name}>'
+
+    def serialize(self):
+        return {
+            "id": self.id,
+            "company_name": self.company_name,
+            "company_address": self.company_address,
+            "country": self.country,
+            "representative_name": self.representative_name
+        }
