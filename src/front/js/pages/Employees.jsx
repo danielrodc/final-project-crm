@@ -1,10 +1,7 @@
-import React, { useState, useEffect, useContext } from "react";
-import { Context } from "../store/appContext.js";
+import React, { useState, useEffect } from "react";
 import profilePicture from "../../img/Default_pfp.jpg";
-import { useParams } from "react-router-dom";
 
-export const Employees = (props) => {
-  const { actions } = useContext(Context);
+export const Employees = () => {
   const [employees, setEmployees] = useState([]);
   const [original, setOriginal] = useState();
 
