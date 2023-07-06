@@ -1,34 +1,115 @@
 import React, { useState, useContext } from "react";
 import { Context } from "../store/appContext";
 import "../../styles/register.css";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 
 export const Register = () => {
-    // const { store, actions } = useContext(Context);
+    const location = useLocation();
+    const { edit, id, fullName, address, phone, email, workRoll, passWord } = location.state;
+    const { actions } = useContext(Context);
+
+    function handleRegister() {
+        let fullNameInput = document.getElementById("fullNameInput");
+        let addressInput = document.getElementById("addressInput");
+        let phoneInput = document.getElementById("phoneInput");
+        let emailInput = document.getElementById("emailInput");
+        let workRollInput = document.getElementById("workRollInput"); 
+        let passWordInput = document.getElementById("passWordInput")
+        if (edit == false) {
+        actions.createUser(
+            FullNameInput.value,
+            addressInput.value,
+            phoneInput.value,
+            emailInput.value,
+            workRollInput.value, 
+            passWordInput.value,
+        );
+        } else if (edit == true) {
+        actions.editUser(
+            FullNameInput.value,
+            addressInput.value,
+            phoneInput.value,
+            emailInput.value,
+            workRollInput.value,
+            passWordInput.value,            
+            id
+        );
+        }
+    }
+    
     return (
     <>
-    <div className="container d-flex justify-content-center">
-        <div className="col-12 mb-8 border border-primary">
-            <div className="row">
-                <div class="mb-3">
-                    <label for="exampleFormControlInput1" className="form-label">Email address</label>
-                    <input type="email" className="form-control" id="exampleFormControlInput1" placeholder="name@example.com"/>
+        <div className="container">
+            <div className="col-12">
+                <h1>{edit == false ? "Add a contact" : "Edit a contact"}</h1>
+                
+
+                {/* <div className="row mb-3">
+                    <label htmlFor="nameInput" className="form-label">
+                        Full Name
+                    </label>
+                    <input
+                    type="name"
+                    required
+                    className="form-control"
+                    id="nameInput"
+                    placeholder="John Doe"
+                    defaultValue={name ? name : ""}
+                    />
                 </div>
-            </div>
-            <div className="row">
-                <label for="inputPassword5" className="form-label">Password</label>
-                <input type="password" id="inputPassword5" className="form-control" aria-labelledby="passwordHelpBlock"/>
-                <div id="passwordHelpBlock" className="form-text">
-                Insert your Password
-                </div>
-            </div>
-            <div className="row">
-            <div class="d-grid gap-2">
-                <button className="btn btn-primary" type="button">Send</button>
-            </div>
-            </div>
+                <div className="mb-3">
+                    <label htmlFor="emailInput" className="form-label">
+                Email address
+            </label>
+            <input
+              type="email"
+              required
+              className="form-control"
+              id="emailInput"
+              placeholder="name@example.com"
+              defaultValue={email ? email : ""}
+            />
+          </div>
+          <div className="mb-3">
+            <label htmlFor="phoneInput" className="form-label">
+              Phone number
+            </label>
+            <input
+              type="number"
+              required
+              className="form-control"
+              id="phoneInput"
+              placeholder="000-000-0000"
+              defaultValue={phone ? phone : ""}
+            />
+          </div>
+          <div className="mb-3">
+            <label htmlFor="addressInput" className="form-label">
+              Address
+            </label>
+            <input
+              type="email"
+              required
+              className="form-control"
+              id="addressInput"
+              placeholder="Maracaibo, Zulia, VE"
+              defaultValue={address ? address : ""}
+            />
+          </div>
         </div>
-    </div>
+        <div className="row d-flex justify-content-end">
+          <button className="col-2 ms-3 me-2">
+            <Link to="/">Go back to contact list</Link>
+          </button>
+          <button
+            type="button"
+            className="col-2 btn btn-primary me-3"
+            onClick={handleDecide}
+          >
+            {edit == false ? "Add contact" : "Edit contact"}
+          </button>
+        </div>
+      </div> */}
     </>
     );
 };
