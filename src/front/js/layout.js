@@ -6,7 +6,8 @@ import { BackendURL } from "./component/backendURL";
 import { Home } from "./pages/home";
 import { Demo } from "./pages/demo";
 import { Single } from "./pages/single";
-import { SeeAll } from "./pages/SeeAll.jsx";
+import { Employees } from "./pages/Employees.jsx";
+import { Customers } from "./pages/Customers.jsx";
 import injectContext from "./store/appContext";
 
 import { Navbar } from "./component/navbar";
@@ -29,7 +30,8 @@ const Layout = () => {
           <Routes>
             <Route element={<Home />} path="/" />
             <Route element={<Demo />} path="/demo" />
-            <Route element={<SeeAll />} path="/:nature/" />
+            <Route element={<Employees />} path="/employees" />
+            <Route element={<Customers />} path="/customers" />
             <Route element={<Single />} path="/single/:theid" />
             <Route element={<h1>Not found!</h1>} />
           </Routes>

@@ -39,18 +39,6 @@ const getState = ({ getStore, getActions, setStore }) => {
         //reset the global store
         setStore({ demo: demo });
       },
-      getCustomers: async () => {
-        try {
-          let response = await fetch(
-            `${process.env.BACKEND_URL}/api/customers`
-          );
-          let data = await response.json();
-          const aux = [...data].sort((a, b) => (a.id > b.id ? -1 : 1));
-          return aux;
-        } catch (error) {
-          console.log(error);
-        }
-      },
     },
   };
 };
