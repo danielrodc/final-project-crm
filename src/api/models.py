@@ -5,7 +5,9 @@ from enum import Enum
 db = SQLAlchemy()
 
 class Roles(str, Enum):
+    admin = 'Admin'
     head_of_department = 'Head of Department'
+    virtual_assistant = 'Virtual Assistant'
     member = 'Department member'
 
 class Departments(str, Enum):
@@ -18,12 +20,12 @@ class Departments(str, Enum):
 class User(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     email = db.Column(db.String(120), unique=True, nullable=False)
-    password = db.Column(db.String(80), unique=False, nullable=False)
+    password = db.Column(db.String(180), unique=False, nullable=False)
     department = db.Column(db.Enum(Departments), nullable=False)
-    role = db.Column(db.Enum(Roles), nullable=False)
+    role = db.Column(db.Enum(Roles), nullable=False, default=db.Enum(Roles.member))
     name = db.Column(db.String(20), unique=False, nullable=False)
     last_name = db.Column(db.String(20), unique=False, nullable=False)
-    is_active = db.Column(db.Boolean(), unique=False, nullable=False)
+    is_active = db.Column(db.Boolean(), unique=False, nullable=False, default=False)
     created_at = db.Column(db.DateTime, default=datetime.utcnow)
 
     def __repr__(self):
@@ -43,8 +45,6 @@ class User(db.Model):
 class Virtualassistant(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     user_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
-    name = db.Column(db.String(20), unique=False, nullable=False)
-    last_name = db.Column(db.String(20), unique=False, nullable=False)
     hourly_rate = db.Column(db.Numeric(precision=4, scale=2), nullable=False)
     weekly_availability = db.Column(db.Integer, nullable=False)
     created_at = db.Column(db.DateTime, default=datetime.utcnow)
@@ -70,6 +70,7 @@ class Project(db.Model):
 
 class Customer(db.Model):
     id = db.Column(db.Integer, primary_key=True)
+    company_logo_url = db.Column(db.String(256), nullable=True)
     company_name = db.Column(db.String(30), nullable=False)
     company_address = db.Column(db.String(80), nullable=False)
     country = db.Column(db.String(20), nullable=False)

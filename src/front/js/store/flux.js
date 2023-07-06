@@ -1,6 +1,12 @@
 const getState = ({ getStore, getActions, setStore }) => {
   return {
-    store: {},
+    store: {
+      user: {
+        name: "jose",
+        last_name: "zangarini",
+        role: "admin",
+      },
+    },
     actions: {
       // Use getActions to call a function within a fuction
       exampleFunction: () => {
@@ -32,6 +38,18 @@ const getState = ({ getStore, getActions, setStore }) => {
 
         //reset the global store
         setStore({ demo: demo });
+      },
+      getCustomers: async () => {
+        try {
+          let response = await fetch(
+            `${process.env.BACKEND_URL}/api/customers`
+          );
+          let data = await response.json();
+          const aux = [...data].sort((a, b) => (a.id > b.id ? -1 : 1));
+          return aux;
+        } catch (error) {
+          console.log(error);
+        }
       },
     },
   };
