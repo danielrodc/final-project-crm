@@ -1,11 +1,12 @@
 import React, { useState, useContext } from "react";
 import { useHistory } from "react-router-dom";
-import "../styles/login.css";
+import "../../styles/login.css";
+import "./home";
+
 
 const LoginPage = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const history = useHistory();
 
   const handleLogin = (event) => {
     event.preventDefault();
@@ -13,7 +14,6 @@ const LoginPage = () => {
     // Check if the email and password are correct 
     if (email === "example@example.com" && password === "password") {
       // Successful login, will redirect to a page once it is defined
-      history.push("/undefined");
     } else {
       alert("Invalid email or password");
     }
@@ -43,3 +43,5 @@ const LoginPage = () => {
 };
 
 export default LoginPage;
+
+
