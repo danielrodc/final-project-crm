@@ -6,6 +6,7 @@ import { BackendURL } from "./component/backendURL";
 import { Home } from "./pages/home";
 import { Demo } from "./pages/demo";
 import { Single } from "./pages/single";
+import { Projects } from "./pages/Projects.jsx";
 import { Employees } from "./pages/Employees.jsx";
 import { Customers } from "./pages/Customers.jsx";
 import injectContext from "./store/appContext";
@@ -23,7 +24,6 @@ const Layout = () => {
   if (!process.env.BACKEND_URL || process.env.BACKEND_URL == "")
     return <BackendURL />;
 
-
   return (
     <div>
       <BrowserRouter basename={basename}>
@@ -33,6 +33,7 @@ const Layout = () => {
             <Route element={<Home />} path="/" />
             <Route element={<LoginPage />} path="/login" />
             <Route element={<Demo />} path="/demo" />
+            <Route element={<Projects />} path="/projects" />
             <Route element={<Employees />} path="/employees" />
             <Route element={<Customers />} path="/customers" />
             <Route element={<Single />} path="/single/:theid" />
@@ -43,7 +44,6 @@ const Layout = () => {
       </BrowserRouter>
     </div>
   );
-
 };
 
 export default injectContext(Layout);
