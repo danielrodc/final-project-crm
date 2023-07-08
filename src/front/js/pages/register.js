@@ -125,16 +125,16 @@ export const Register = () => {
                 </div>
             </div>
             <div className="row d-flex justify-content-end">
-            <button className="col-2 ms-3 me-2">
-                <Link to="/login">Go back to Login</Link>
-            </button>
-            <button
-                type="button"
-                className="col-2 btn btn-primary me-3"
-                onClick={handleRegister}
-            >
-                {edit == false ? "Add contact" : "Edit contact"}
-            </button>
+                <button className="col-2 ms-3 me-2">
+                    <Link to="/login">Go back to Login</Link>
+                </button>
+                <button
+                    type="button"
+                    className="col-2 btn btn-primary me-3"
+                    onClick={handleRegister}
+                >
+                    {edit == false ? "Add contact" : "Edit contact"}
+                </button>
             </div>
         </div>
     </>
