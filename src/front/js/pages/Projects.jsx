@@ -1,9 +1,19 @@
 import React, { useState, useEffect, useContext } from "react";
+import { Context } from "../store/appContext";
 import test_projects from "C://4GeeksAcademy/MOCK_DATA.json";
 
 export const Projects = () => {
   const [data, setData] = useState(test_projects);
-  console.log(data);
+  const { store } = useContext(Context);
+  const { user } = store;
+  function handleClick(event) {
+    if (
+      event.target.id.includes("edit") ||
+      event.target.parentNode.id.includes("edit")
+    ) {
+      console.log("Hi");
+    }
+  }
   return (
     <>
       <div className="container">
@@ -38,10 +48,20 @@ export const Projects = () => {
                     <td>{project.assistant_name}</td>
                     <td>{project.customer_name}</td>
                     <td className="d-flex justify-content-center">
-                      <button type="button" className="btn btn-secondary me-1">
+                      <button
+                        type="button"
+                        className="btn btn-secondary me-1"
+                        id={`edit-button${index}`}
+                        onClick={handleClick}
+                      >
                         <i className="fa-regular fa-pen-to-square"></i>
                       </button>
-                      <button type="button" className="btn btn-danger">
+                      <button
+                        type="button"
+                        className="btn btn-danger"
+                        id={`delete-button${index}`}
+                        onClick={handleClick}
+                      >
                         <i className="fa-solid fa-trash"></i>
                       </button>
                     </td>
