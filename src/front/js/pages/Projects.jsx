@@ -11,7 +11,9 @@ export const Projects = () => {
       event.target.id.includes("edit") ||
       event.target.parentNode.id.includes("edit")
     ) {
-      console.log("Hi");
+      if (user.role === "admin") {
+        console.log("You have permission");
+      }
     }
   }
   return (
@@ -33,7 +35,11 @@ export const Projects = () => {
                 <th scope="col">Project Manager</th>
                 <th scope="col">Assigned VA</th>
                 <th scope="col">Customer</th>
-                <th scope="col" style={{ width: 80 + "px" }}></th>
+                <th
+                  scope="col"
+                  style={{ width: 80 + "px" }}
+                  className={`${user.role != "admin" ? "d-none" : ""}`}
+                ></th>
               </tr>
             </thead>
             <tbody>
@@ -47,7 +53,11 @@ export const Projects = () => {
                     <td>{project.account_manager_name}</td>
                     <td>{project.assistant_name}</td>
                     <td>{project.customer_name}</td>
-                    <td className="d-flex justify-content-center">
+                    <td
+                      className={`d-flex justify-content-center ${
+                        user.role != "admin" ? "d-none" : ""
+                      }`}
+                    >
                       <button
                         type="button"
                         className="btn btn-secondary me-1"
