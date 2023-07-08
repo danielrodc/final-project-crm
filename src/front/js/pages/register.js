@@ -5,34 +5,36 @@ import { Link, useLocation } from "react-router-dom";
 
 export const Register = () => {
     const location = useLocation();
-    const { edit, id, fullName, address, phone, email, workRoll, passWord } = location.state;
+    const { edit, id, name, lastname, email, passWord, department, city, country} = location.state;
     const { actions } = useContext(Context);
 
     function handleRegister() {
-        let fullNameInput = document.getElementById("fullNameInput");
-        let addressInput = document.getElementById("addressInput");
-        let phoneInput = document.getElementById("phoneInput");
+        let nameInput = document.getElementById("nameInput");
+        let lastnameInput = document.getElementById("lastnameInput");
         let emailInput = document.getElementById("emailInput");
-        let workRollInput = document.getElementById("workRollInput"); 
-        let passWordInput = document.getElementById("passWordInput")
+        let passwordInput = document.getElementById("passwordInput");
+        let departmentInput = document.getElementById("departmentInput");
+        let cityInput = document.getElementById("cityInput");
+        let countryInput = document.getElementById("countryInput");
+
         if (edit == false) {
         actions.createUser(
-            FullNameInput.value,
-            addressInput.value,
-            phoneInput.value,
+            nameInput.value,
+            lastnameInput.value, 
             emailInput.value,
-            workRollInput.value, 
-            passWordInput.value,
+            passwordInput.value,
+            departmentInput.value ,
+            cityInput.value,
+            countryInput.value
         );
         } else if (edit == true) {
         actions.editUser(
-            FullNameInput.value,
-            addressInput.value,
-            phoneInput.value,
-            emailInput.value,
-            workRollInput.value,
-            passWordInput.value,            
-            id
+            nameInput.value,
+            lastnameInput.value, 
+            passwordInput.value,
+            departmentInput.value ,
+            cityInput.value,
+            countryInput.value
         );
         }
     }
@@ -44,15 +46,28 @@ export const Register = () => {
                 <h1>{edit == false ? "Add a contact" : "Edit a contact"}</h1>
                 <div className="row mb-3">
                     <label htmlFor="nameInput" className="form-label">
-                        Full Name
+                        First Name
                     </label>
                     <input
                     type="name"
                     required
                     className="form-control"
                     id="nameInput"
-                    placeholder="Name Last Name"
-                    defaultValue={fullName ? fullName : ""}
+                    placeholder="Your Name"
+                    defaultValue={name ? name : ""}
+                    />
+                </div>
+                <div className="row mb-3">
+                    <label htmlFor="lastnameInput" className="form-label">
+                        Last Name
+                    </label>
+                    <input
+                    type="lastname"
+                    required
+                    className="form-control"
+                    id="lastnameInput"
+                    placeholder="Your Last Name"
+                    defaultValue={lastname ? lastname : ""}
                     />
                 </div>
                 <div className="mb-3">
@@ -69,42 +84,42 @@ export const Register = () => {
                     />
                 </div>
                 <div className="mb-3">
-                    <label htmlFor="phoneInput" className="form-label">
-                    Phone number
+                    <label htmlFor="departmentInput" className="form-label">
+                    Department
                     </label>
                     <input
-                    type="number"
+                    type="department"
                     required
                     className="form-control"
-                    id="phoneInput"
-                    placeholder="000-000-0000"
-                    defaultValue={phone ? phone : ""}
+                    id="departmentInput"
+                    placeholder="Department of work"
+                    defaultValue={department ? department : ""}
                     />
                 </div>
                 <div className="mb-3">
-                    <label htmlFor="addressInput" className="form-label">
-                    Address
+                    <label htmlFor="cityInput" className="form-label">
+                    City
                     </label>
                     <input
-                    type="adress"
+                    type="city"
                     required
                     className="form-control"
-                    id="addressInput"
-                    placeholder="City, Country"
-                    defaultValue={address ? address : ""}
+                    id="cityInput"
+                    placeholder="Your City"
+                    defaultValue={city? city : ""}
                     />
                 </div>
                 <div className="mb-3">
-                    <label htmlFor="workRoll" className="form-label">
-                    Work Roll 
+                    <label htmlFor="countryInput" className="form-label">
+                    Country
                     </label>
                     <input
-                    type="roll"
+                    type="country"
                     required
                     className="form-control"
-                    id="workRollInput"
-                    placeholder="Construction worker"
-                    defaultValue={workRoll ? workRoll : ""}
+                    id="countryInput"
+                    placeholder="Your Country"
+                    defaultValue={country? country : ""}
                     />
                 </div>
                 <div>
