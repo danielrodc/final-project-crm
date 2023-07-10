@@ -1,13 +1,11 @@
-"""
-This module takes care of starting the API Server, Loading the DB and Adding the endpoints
-"""
 from flask import Flask, request, jsonify, url_for, Blueprint
-from api.models import db, User, Customer
+from api.models import db, User
 from api.utils import generate_sitemap, APIException
 
 api = Blueprint('api', __name__)
 
 # /users endpoints
+<<<<<<< HEAD
 @api.route('/users', methods=['GET'])
 def get_users():
     users = User()
@@ -17,48 +15,44 @@ def get_users():
         return jsonify(users), 200
     else:
         return jsonify({"message":"no users found"}), 404
+=======
+>>>>>>> 982dcc383e5c3aa478a887ce89ed586afa956bc2
 
-@api.route('/users/<int:user_id>', methods=['GET'])
-def get_one_user(user_id = None):
-    if user_id is not None:
-        users = User()
-        users = users.query.get(user_id)
-        if users is not None:
-            return jsonify(users.serialize()), 200
-        else:
-            return jsonify({"message":"user not found"}), 404
-    else:
-        return jsonify({"message":"bad request"}), 400
 
-@api.route('/users/<department>', methods=['GET'])
-def get_department(department = None):
-    if department == "hr" or department == "sales" or department == "finances" or department == "trial" or department == "recruitment":
-        users = User()
-        users = users.query.filter_by(department = department).all()
-        users = list(map(lambda item: item.serialize(), users))
-        if len(users) != 0:
-            return jsonify(users), 200
-        else:
-            return jsonify({"message":"no users found"}), 404
-    else:
-        return jsonify({"message":"bad request"}), 400
+@api.route('/users', methods=['POST'])
+def add_user():
+    if request.method == "POST":
+        data = request.json
+        if data.get("email") is None:
+            return jsonify({"message": "Wrong property"}), 400
+        if data.get("password") is None:
+            return jsonify({"message": "Wrong property"}), 400
+        if data.get("department") is None:
+            return jsonify({"message": "Wrong property"}), 400
+        if data.get("name") is None:
+            return jsonify({"message": "Wrong property"}), 400
+        if data.get("last_name") is None:
+            return jsonify({"message": "Wrong property"}), 400
+        if data.get("city") is None:
+            return jsonify({"message": "Wrong property"}), 400
+        if data.get("country") is None:
+            return jsonify({"message": "Wrong property"}), 400
 
-# /customers endpoints
-@api.route('/customers', methods=['GET'])
-def get_customers():
-    customers = Customer()
-    customers = customers.query.all()
-    customers = list(map(lambda item: item.serialize(), customers))
-    return jsonify(customers)
+        user = User.query.filter_by(email=data.get("email")).first()
+        if user is not None:
+            return jsonify({"message": "The user all ready exist"})
 
-@api.route('/customers/<int:customer_id>', methods=['GET'])
-def get_one_customer(customer_id = None):
-    if customer_id is not None:
-        customer = Customer()
-        customer = customer.query.get(customer_id)
-        if customer is not None:
-            return jsonify(customer.serialize()), 200
-        else:
-            return jsonify({"message":"customer not found"}), 404
-    else:
-        return jsonify({"message":"bad request"}), 400
+        if user is None:
+            user = User(email=data["email"], password=data["password"],
+                        department=data["department"], name=data["name"],
+                        last_name=data["last_name"], city=data["city"],
+                        country=data["country"])
+            db.session.add(user)
+
+            try:
+                db.session.commit()
+                return jsonify(data), 201
+
+            except Exception as error:
+                print(error)
+                return jsonify({"message": error.args}), 500

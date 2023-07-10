@@ -72,7 +72,7 @@ export const Register = () => {
                     onChange={handleChange}
                     />
                 </div>
-                <div className="row mb-3 btn-group">
+                <div className="row mb-8 btn-group">
                     <label htmlFor="departmentInput" className="form-label">
                     Department
                     </label>
