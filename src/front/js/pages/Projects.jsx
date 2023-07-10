@@ -6,13 +6,24 @@ export const Projects = () => {
   const [data, setData] = useState(test_projects);
   const { store } = useContext(Context);
   const { user } = store;
-  function handleClick(event) {
+
+  function handleEdit(event) {
     if (
       event.target.id.includes("edit") ||
       event.target.parentNode.id.includes("edit")
     ) {
       if (user.role === "admin") {
-        console.log("You have permission");
+        console.log("You have permission to edit");
+      }
+    }
+  }
+  function handleDelete(event) {
+    if (
+      event.target.id.includes("delete") ||
+      event.target.parentNode.id.includes("delete")
+    ) {
+      if (user.role === "admin") {
+        console.log("You have permission to delete");
       }
     }
   }
@@ -20,7 +31,17 @@ export const Projects = () => {
     <>
       <div className="container">
         <div className="row mt-3 d-flex justify-content-center">
-          <h1 className="text-success">Projects</h1>
+          <div className="p-0 d-flex justify-content-between align-items-center">
+            <h1 className="text-success">Projects</h1>
+            <button
+              type="button"
+              className={`btn btn-success ${
+                user.role != "admin" ? "d-none" : ""
+              }`}
+            >
+              Add a project
+            </button>
+          </div>
           <table className="table table-sm table-striped table-success table-hover table-bordered align-middle">
             <thead>
               <tr>
@@ -62,7 +83,7 @@ export const Projects = () => {
                         type="button"
                         className="btn btn-secondary me-1"
                         id={`edit-button${index}`}
-                        onClick={handleClick}
+                        onClick={handleEdit}
                       >
                         <i className="fa-regular fa-pen-to-square"></i>
                       </button>
@@ -70,7 +91,7 @@ export const Projects = () => {
                         type="button"
                         className="btn btn-danger"
                         id={`delete-button${index}`}
-                        onClick={handleClick}
+                        onClick={handleDelete}
                       >
                         <i className="fa-solid fa-trash"></i>
                       </button>
