@@ -4,7 +4,6 @@ from enum import Enum
 
 db = SQLAlchemy()
 
-
 class Roles(str, Enum):
     admin = 'Admin'
     head_of_department = 'Head of Department'
@@ -25,16 +24,14 @@ class User(db.Model):
     email = db.Column(db.String(120), unique=True, nullable=False)
     password = db.Column(db.String(20), unique=False, nullable=False)
     department = db.Column(db.Enum(Departments), nullable=False)
-    role = db.Column(db.Enum(Roles), nullable=False,
-                     default=Roles.member)
+    role = db.Column(db.Enum(Roles), nullable=False, default=Roles.member)
     name = db.Column(db.String(20), unique=False, nullable=False)
     last_name = db.Column(db.String(20), unique=False, nullable=False)
     hourly_rate = db.Column(db.Numeric(precision=4, scale=2), nullable=True)
     weekly_availability = db.Column(db.Integer, nullable=True)
     city = db.Column(db.String(50), nullable=False)
     country = db.Column(db.String(50), nullable=False)
-    is_active = db.Column(db.Boolean(), unique=False,
-                          nullable=False, default=False)
+    is_active = db.Column(db.Boolean(), unique=False, nullable=False, default=False)
     created_at = db.Column(db.DateTime, default=datetime.utcnow)
 
     def __repr__(self):
@@ -53,17 +50,31 @@ class User(db.Model):
             # do not serialize the password, its a security breach
         }
 
+class Virtualassistant(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    user_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
+    hourly_rate = db.Column(db.Numeric(precision=4, scale=2), nullable=False)
+    weekly_availability = db.Column(db.Integer, nullable=False)
+    created_at = db.Column(db.DateTime, default=datetime.utcnow)
+
+    def __repr__(self):
+        return f'<Virtual Assistant {self.name}>'
+
+    def serialize(self):
+        return {
+            "id": self.id,
+            "name": self.name,
+            "last_name": self.last_name,
+            "hourly_rate": self.hourly_rate,
+            "weekly_availability": self.weekly_availability
+        }
 
 class Project(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     project_name = db.Column(db.String(100), unique=False, nullable=False)
-    account_manager_id = db.Column(
-        db.Integer, db.ForeignKey('user.id'), nullable=False)
-    assistant_id = db.Column(
-        db.Integer, db.ForeignKey('user.id'), nullable=False)
-    customer_id = db.Column(db.Integer, db.ForeignKey(
-        'customer.id'), nullable=False)
-
+    account_manager_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
+    assistant_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
+    customer_id = db.Column(db.Integer, db.ForeignKey('customer.id'), nullable=False)
 
 class Customer(db.Model):
     id = db.Column(db.Integer, primary_key=True)
