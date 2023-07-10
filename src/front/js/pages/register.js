@@ -57,7 +57,7 @@ export const Register = () => {
                     onChange={handleChange}
                     />
                 </div>
-                <div className="mb-3">
+                <div className="row mb-3">
                     <label htmlFor="emailInput" className="form-label">
                     Email address
                     </label>
@@ -72,22 +72,20 @@ export const Register = () => {
                     onChange={handleChange}
                     />
                 </div>
-                <div className="mb-3">
+                <div className="row mb-8 btn-group">
                     <label htmlFor="departmentInput" className="form-label">
                     Department
                     </label>
-                    <input
-                    type="text"
-                    required
-                    className="form-control"
-                    id="departmentInput"
-                    placeholder="Department of work"
-                    value={user.department}
-                    name = "department"
-                    onChange={handleChange}
-                    />
+                    <select className="form-select" aria-label="Default select example">
+                        <option selected>Select your department</option>
+                        <option value={user.department} name = "department" onChange={handleChange}>Human Resources</option>
+                        <option value={user.department} name = "department" onChange={handleChange}>Sales</option>
+                        <option value={user.department} name = "department" onChange={handleChange}>Finances</option>
+                        <option value={user.department} name = "department" onChange={handleChange}>Trial</option>
+                        <option value={user.department} name = "department" onChange={handleChange}>Recruitment</option>
+                    </select>                 
                 </div>
-                <div className="mb-3">
+                <div className="row mb-3">
                     <label htmlFor="cityInput" className="form-label">
                     City
                     </label>
@@ -102,7 +100,7 @@ export const Register = () => {
                     onChange={handleChange}
                     />
                 </div>
-                <div className="mb-3">
+                <div className="row mb-3">
                     <label htmlFor="countryInput" className="form-label">
                     Country
                     </label>
@@ -117,7 +115,7 @@ export const Register = () => {
                     onChange={handleChange}
                     />
                 </div>
-                <div>
+                <div className="row mb-3">
                     <label for="inputPassword5" className="form-label">
                         Password
                     </label>
