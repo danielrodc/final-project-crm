@@ -5,7 +5,6 @@ from api.utils import generate_sitemap, APIException
 api = Blueprint('api', __name__)
 
 # /users endpoints
-<<<<<<< HEAD
 @api.route('/users', methods=['GET'])
 def get_users():
     users = User()
@@ -15,8 +14,6 @@ def get_users():
         return jsonify(users), 200
     else:
         return jsonify({"message":"no users found"}), 404
-=======
->>>>>>> 982dcc383e5c3aa478a887ce89ed586afa956bc2
 
 
 @api.route('/users', methods=['POST'])

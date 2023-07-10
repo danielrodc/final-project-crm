@@ -75,9 +75,6 @@ class Project(db.Model):
     account_manager_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
     assistant_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
     customer_id = db.Column(db.Integer, db.ForeignKey('customer.id'), nullable=False)
-    account_manager_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
-    assistant_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
-    customer_id = db.Column(db.Integer, db.ForeignKey('customer.id'), nullable=False)
 
 class Customer(db.Model):
     id = db.Column(db.Integer, primary_key=True)
