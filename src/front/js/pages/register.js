@@ -1,73 +1,60 @@
 import React, { useState, useContext } from "react";
 import { Context } from "../store/appContext";
 import "../../styles/register.css";
-import { Link, useLocation } from "react-router-dom";
+import {Link} from "react-router-dom";
 
 export const Register = () => {
-    const location = useLocation();
-    const { edit, id, name, lastname, email, passWord, department, city, country} = location.state;
-    const { actions } = useContext(Context);
-
+    const { actions, store } = useContext(Context);
+    const [user, setUser] = useState({
+        name : "",
+        last_name: "",
+        email: "",
+        password: "",
+        department:"",
+        city: "",
+        country: ""
+    })
+    const handleChange = (event) => {
+        setUser({ ...user, [event.target.name]: event.target.value });
+    };
+    
+    
     function handleRegister() {
-        let nameInput = document.getElementById("nameInput");
-        let lastnameInput = document.getElementById("lastnameInput");
-        let emailInput = document.getElementById("emailInput");
-        let passwordInput = document.getElementById("passwordInput");
-        let departmentInput = document.getElementById("departmentInput");
-        let cityInput = document.getElementById("cityInput");
-        let countryInput = document.getElementById("countryInput");
-
-        if (edit == false) {
-        actions.createUser(
-            nameInput.value,
-            lastnameInput.value, 
-            emailInput.value,
-            passwordInput.value,
-            departmentInput.value ,
-            cityInput.value,
-            countryInput.value
-        );
-        } else if (edit == true) {
-        actions.editUser(
-            nameInput.value,
-            lastnameInput.value, 
-            passwordInput.value,
-            departmentInput.value ,
-            cityInput.value,
-            countryInput.value
-        );
-        }
+        actions.Register(user);
     }
     
     return (
     <>
         <div className="container">
-            <div className="row">
-                <h1>{edit == false ? "Add a contact" : "Edit a contact"}</h1>
+            <div className="col 12">
                 <div className="row mb-3">
                     <label htmlFor="nameInput" className="form-label">
                         First Name
                     </label>
                     <input
-                    type="name"
+                    type="text"
                     required
                     className="form-control"
                     id="nameInput"
                     placeholder="Your Name"
-                    defaultValue={name ? name : ""}
+                    value={user.name}
+                    name = "name"
+                    onChange={handleChange}
                     />
                 </div>
                 <div className="row mb-3">
-                    <label htmlFor="lastnameInput" className="form-label">
+                    <label htmlFor="lastNameInput" className="form-label">
                         Last Name
                     </label>
                     <input
-                    type="lastname"
+                    type="text"
                     required
                     className="form-control"
-                    id="lastnameInput"
+                    id="lastNameInput"
                     placeholder="Your Last Name"
-                    defaultValue={lastname ? lastname : ""}
+                    value={user.last_name}
+                    name = "last_name"
+                    onChange={handleChange}
                     />
                 </div>
                 <div className="mb-3">
@@ -75,12 +62,14 @@ export const Register = () => {
                     Email address
                     </label>
                     <input
-                    type="email"
+                    type="text"
                     required
                     className="form-control"
                     id="emailInput"
                     placeholder="name@example.com"
-                    defaultValue={email ? email : ""}
+                    value={user.email}
+                    name = "email"
+                    onChange={handleChange}
                     />
                 </div>
                 <div className="mb-3">
@@ -88,12 +77,14 @@ export const Register = () => {
                     Department
                     </label>
                     <input
-                    type="department"
+                    type="text"
                     required
                     className="form-control"
                     id="departmentInput"
                     placeholder="Department of work"
-                    defaultValue={department ? department : ""}
+                    value={user.department}
+                    name = "department"
+                    onChange={handleChange}
                     />
                 </div>
                 <div className="mb-3">
@@ -101,12 +92,14 @@ export const Register = () => {
                     City
                     </label>
                     <input
-                    type="city"
+                    type="text"
                     required
                     className="form-control"
                     id="cityInput"
                     placeholder="Your City"
-                    defaultValue={city? city : ""}
+                    value={user.city}
+                    name = "city"
+                    onChange={handleChange}
                     />
                 </div>
                 <div className="mb-3">
@@ -114,12 +107,14 @@ export const Register = () => {
                     Country
                     </label>
                     <input
-                    type="country"
+                    type="text"
                     required
                     className="form-control"
                     id="countryInput"
                     placeholder="Your Country"
-                    defaultValue={country? country : ""}
+                    value={user.country}
+                    name = "country"
+                    onChange={handleChange}
                     />
                 </div>
                 <div>
@@ -132,7 +127,9 @@ export const Register = () => {
                     id="inputPassword5" 
                     className="form-control" 
                     aria-labelledby="passwordHelpBlock"
-                    defaultValue={passWord ? passWord : ""}
+                    value={user.password}
+                    name = "password"
+                    onChange={handleChange}
                     />
                     <div id="passwordHelpBlock" className="form-text">
                     Your password must be 8-20 characters long, contain letters and numbers, and must not contain spaces, special characters, or emoji.
@@ -148,7 +145,7 @@ export const Register = () => {
                     className="col-2 btn btn-primary me-3"
                     onClick={handleRegister}
                 >
-                    {edit == false ? "Add contact" : "Edit contact"}
+                    Register
                 </button>
             </div>
         </div>

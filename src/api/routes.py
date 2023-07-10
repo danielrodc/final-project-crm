@@ -7,8 +7,8 @@ api = Blueprint('api', __name__)
 # /users endpoints
 
 
-@api.route('/users/<string:email>', methods=['POST'])
-def add_user(email=None):
+@api.route('/users', methods=['POST'])
+def add_user():
     if request.method == "POST":
         data = request.json
         if data.get("email") is None:
@@ -19,21 +19,21 @@ def add_user(email=None):
             return jsonify({"message": "Wrong property"}), 400
         if data.get("name") is None:
             return jsonify({"message": "Wrong property"}), 400
-        if data.get("lastname") is None:
+        if data.get("last_name") is None:
             return jsonify({"message": "Wrong property"}), 400
         if data.get("city") is None:
             return jsonify({"message": "Wrong property"}), 400
         if data.get("country") is None:
             return jsonify({"message": "Wrong property"}), 400
 
-        user = User()
-        if user.email is not None:
+        user = User.query.filter_by(email=data.get("email")).first()
+        if user is not None:
             return jsonify({"message": "The user all ready exist"})
 
-        if user.email is None:
+        if user is None:
             user = User(email=data["email"], password=data["password"],
                         department=data["department"], name=data["name"],
-                        lastname=data["lastname"], city=data["city"],
+                        last_name=data["last_name"], city=data["city"],
                         country=data["country"])
             db.session.add(user)
 
