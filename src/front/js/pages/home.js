@@ -1,6 +1,7 @@
 import React, { useState, useContext } from "react";
 import { Context } from "../store/appContext";
 import "../../styles/home.css";
+import { Link } from "react-router-dom";
 
 export const Home = () => {
   const { store, actions } = useContext(Context);
@@ -19,10 +20,10 @@ export const Home = () => {
             <div className="col-md-4 test">
               <div className="card-body d-flex flex-column align-items-center justify-content-center h-100">
                 <button type="button" className="btn btn-success mb-3">
-                  Log in
+                  <Link to="/register">Log In</Link>
                 </button>
                 <button type="button" className="btn btn-success">
-                  Register
+                  <Link to="/register">Register</Link>
                 </button>
               </div>
             </div>
