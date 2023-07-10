@@ -10,6 +10,7 @@ class Roles(str, Enum):
     virtual_assistant = 'Virtual Assistant'
     member = 'Department member'
 
+
 class Departments(str, Enum):
     hr = 'Human Resources'
     sales = 'Sales'
@@ -17,12 +18,13 @@ class Departments(str, Enum):
     trial = 'Trial'
     recruitment = 'Recruitment'
 
+
 class User(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     email = db.Column(db.String(120), unique=True, nullable=False)
-    password = db.Column(db.String(180), unique=False, nullable=False)
+    password = db.Column(db.String(20), unique=False, nullable=False)
     department = db.Column(db.Enum(Departments), nullable=False)
-    role = db.Column(db.Enum(Roles), nullable=False, default=db.Enum(Roles.member))
+    role = db.Column(db.Enum(Roles), nullable=False, default=Roles.member)
     name = db.Column(db.String(20), unique=False, nullable=False)
     last_name = db.Column(db.String(20), unique=False, nullable=False)
     hourly_rate = db.Column(db.Numeric(precision=4, scale=2), nullable=True)
@@ -48,9 +50,31 @@ class User(db.Model):
             # do not serialize the password, its a security breach
         }
 
+class Virtualassistant(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    user_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
+    hourly_rate = db.Column(db.Numeric(precision=4, scale=2), nullable=False)
+    weekly_availability = db.Column(db.Integer, nullable=False)
+    created_at = db.Column(db.DateTime, default=datetime.utcnow)
+
+    def __repr__(self):
+        return f'<Virtual Assistant {self.name}>'
+
+    def serialize(self):
+        return {
+            "id": self.id,
+            "name": self.name,
+            "last_name": self.last_name,
+            "hourly_rate": self.hourly_rate,
+            "weekly_availability": self.weekly_availability
+        }
+
 class Project(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     project_name = db.Column(db.String(100), unique=False, nullable=False)
+    account_manager_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
+    assistant_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
+    customer_id = db.Column(db.Integer, db.ForeignKey('customer.id'), nullable=False)
     account_manager_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
     assistant_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
     customer_id = db.Column(db.Integer, db.ForeignKey('customer.id'), nullable=False)

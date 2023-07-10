@@ -19,10 +19,11 @@ export const Home = () => {
             </div>
             <div className="col-md-4 test">
               <div className="card-body d-flex flex-column align-items-center justify-content-center h-100">
-              <Link to="/login" className="btn btn-success mb-3" >Log in
-              </Link>
+                <Link to="/login" className="btn btn-success mb-3">
+                  Log in
+                </Link>
                 <button type="button" className="btn btn-success">
-                  Register
+                  <Link to="/register">Register</Link>
                 </button>
               </div>
             </div>
