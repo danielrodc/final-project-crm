@@ -75,6 +75,8 @@ class Project(db.Model):
     account_manager_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
     assistant_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
     customer_id = db.Column(db.Integer, db.ForeignKey('customer.id'), nullable=False)
+    description = db.Column(db.Text, nullable=True)
+    created_at = db.Column(db.DateTime, default=datetime.utcnow)
 
 class Customer(db.Model):
     id = db.Column(db.Integer, primary_key=True)
