@@ -1,5 +1,5 @@
 from flask import Flask, request, jsonify, url_for, Blueprint
-from api.models import db, User
+from api.models import db, User, Customer, Project
 from api.utils import generate_sitemap, APIException
 
 api = Blueprint('api', __name__)
@@ -95,5 +95,25 @@ def get_one_customer(customer_id = None):
             return jsonify(customer.serialize()), 200
         else:
             return jsonify({"message":"customer not found"}), 404
+    else:
+        return jsonify({"message":"bad request"}), 400
+
+# /projects endpoints
+@api.route('/projects', methods=['GET'])
+def get_projects():
+    projects = Project()
+    projects = projects.query.all()
+    projects = list(map(lambda item: item.serialize(), projects))
+    return jsonify(projects)
+
+@api.route('/projects/<int:project_id>', methods=['GET'])
+def get_one_project(project_id = None):
+    if project_id is not None:
+        project = Project()
+        project = project.query.get(project_id)
+        if project is not None:
+            return jsonify(project.serialize()), 200
+        else:
+            return jsonify({"message":"project not found"}), 404
     else:
         return jsonify({"message":"bad request"}), 400
