@@ -1,8 +1,10 @@
 import React, { useState, useEffect, useContext } from "react";
+import { useNavigate } from "react-router-dom";
 import { Context } from "../store/appContext";
 import test_projects from "C://4GeeksAcademy/MOCK_DATA.json";
 
 export const Projects = () => {
+  let navigate = useNavigate();
   const [data, setData] = useState(test_projects);
   const { store } = useContext(Context);
   const { user } = store;
@@ -14,6 +16,7 @@ export const Projects = () => {
     ) {
       if (user.role === "admin") {
         console.log("You have permission to edit");
+        navigate("/projects/edit");
       }
     }
   }
@@ -27,6 +30,7 @@ export const Projects = () => {
       }
     }
   }
+
   return (
     <>
       <div className="container">
