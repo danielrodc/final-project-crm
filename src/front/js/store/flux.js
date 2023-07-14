@@ -1,4 +1,3 @@
-
 const getState = ({ getStore, getActions, setStore }) => {
   return {
     store: {
@@ -18,12 +17,12 @@ const getState = ({ getStore, getActions, setStore }) => {
     },
     },
     actions: {
-      // Use getActions to call a function within a fuction
+
       Projects : async(project) =>{
         const store = getStore();
         const actions = getActions();
         try {
-          let response = await fetch(`${process.env.BACKEND_URL}/api/projects`, {
+          let response = await fetch(`${process.env.BACKEND_URL}/api/project_create`, {
             method: "POST",
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify(user),
@@ -43,13 +42,13 @@ const getState = ({ getStore, getActions, setStore }) => {
         const actions = getActions();
         try {
           let response = await fetch(`${process.env.BACKEND_URL}/api/users`, {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify(user),
-        });
-        if (response.ok) {
-          console.log(user)
-          return true
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify(user),
+          });
+          if (response.ok) {
+            console.log(user);
+            return true;
           }
         } 
         catch (err) {
@@ -92,4 +91,3 @@ const getState = ({ getStore, getActions, setStore }) => {
 };
 
 export default getState;
-

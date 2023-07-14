@@ -4,6 +4,7 @@ from enum import Enum
 
 db = SQLAlchemy()
 
+
 class Roles(str, Enum):
     admin = 'Admin'
     head_of_department = 'Head of Department'
@@ -31,7 +32,8 @@ class User(db.Model):
     weekly_availability = db.Column(db.Integer, nullable=True)
     city = db.Column(db.String(50), nullable=False)
     country = db.Column(db.String(50), nullable=False)
-    is_active = db.Column(db.Boolean(), unique=False, nullable=False, default=False)
+    is_active = db.Column(db.Boolean(), unique=False,
+                          nullable=False, default=False)
     created_at = db.Column(db.DateTime, default=datetime.utcnow)
 
     def __repr__(self):
@@ -49,6 +51,7 @@ class User(db.Model):
             "country": self.country
             # do not serialize the password, its a security breach
         }
+
 
 class Virtualassistant(db.Model):
     id = db.Column(db.Integer, primary_key=True)
@@ -69,12 +72,33 @@ class Virtualassistant(db.Model):
             "weekly_availability": self.weekly_availability
         }
 
+
 class Project(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     project_name = db.Column(db.String(100), unique=False, nullable=False)
-    account_manager_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
-    assistant_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
-    customer_id = db.Column(db.Integer, db.ForeignKey('customer.id'), nullable=False)
+    account_manager_id = db.Column(
+        db.Integer, db.ForeignKey('user.id'), nullable=False)
+    assistant_id = db.Column(
+        db.Integer, db.ForeignKey('user.id'), nullable=False)
+    customer_id = db.Column(db.Integer, db.ForeignKey(
+        'customer.id'), nullable=False)
+    description = db.Column(db.Text, nullable=True)
+    created_at = db.Column(db.DateTime, default=datetime.utcnow)
+
+    def __repr__(self):
+        return f'<Project {self.id}>'
+
+    def serialize(self):
+        return {
+            "id": self.id,
+            "project_name": self.project_name,
+            "account_manager_id": self.account_manager_id,
+            "assistant_id": self.assistant_id,
+            "customer_id": self.customer_id,
+            "description": self.description,
+            "created_at": self.created_at
+        }
+
 
 class Customer(db.Model):
     id = db.Column(db.Integer, primary_key=True)
