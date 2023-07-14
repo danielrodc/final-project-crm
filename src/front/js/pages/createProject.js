@@ -6,10 +6,10 @@ export const Create_project = () => {
     const { actions, store } = useContext(Context);
     const [project, setProject] = useState({
         project_name : "",
-        project_description: "",
-        in_charge_of: "",
-        assign_vas: "",
-        client:""
+        account_manager_id: "",
+        assistant_id: "",
+        customer_id: "",
+        description:""
     })
 
     const handleProjects = (event) => {
@@ -36,57 +36,56 @@ export const Create_project = () => {
                     />
                 </div>
                 <div className="mb-3">
-                    <label htmlFor="in_charge_ofInput" className="form-label">In Charge Of</label>
+                    <label htmlFor="account_manager_idInput" className="form-label">Account Manager ID</label>
                     <input 
-                    type="text" 
+                    type="number" 
                     required 
                     className="form-control"
-                    id="in_charge_ofInput" 
-                    value={project.in_charge_of}
-                    name = "in_charge_of"
+                    id="account_manager_idInput" 
+                    value={project.account_manager_id}
+                    name = "account_manager_id"
                     onChange={handleProjects}
                     />
                 </div>
                 <div className="mb-3">
-                    <label htmlFor="assign_vasInput" className="form-label">Assign Resources</label>
+                    <label htmlFor="assistant_idInput" className="form-label">Assistant ID</label>
                     <input 
-                    type="text" 
+                    type="number" 
                     required 
                     className="form-control"
-                    id="assign_vasInput" 
-                    value={project.assign_vas}
-                    name = "assign_vas"
+                    id="assistant_idInput" 
+                    value={project.assistant_id}
+                    name = "assistant_id"
                     onChange={handleProjects}
                     />
                 </div>
                 <div className="mb-3">
-                    <label htmlFor="clientInput" className="form-label">Client Name</label>
+                    <label htmlFor="customer_idInput" className="form-label">Customer ID</label>
                     <input 
-                    type="text" 
+                    type="number" 
                     required 
                     className="form-control"
-                    id="clientInput" 
-                    value={project.client}
-                    name = "client"
+                    id="customer_idInput" 
+                    value={project.customer_id}
+                    name = "customer_id"
                     onChange={handleProjects}
                     />
                 </div>
                 <div className="mb-3">
-                    <label htmlFor="project_descriptionInput" class="form-label">Project Description</label>
+                    <label htmlFor="descriptionInput" class="form-label">Project Description</label>
                     <textarea 
                     className="form-control" 
                     rows="3"
-                    id="project_descriptionInput" 
-                    value={project.project_description}
-                    name = "project_description"
+                    id="descriptionInput" 
+                    value={project.description}
+                    name = "description"
                     onChange={handleProjects}
                     ></textarea>
                 </div>
-                <div className="row d-flex justify-content-end">
+                <div className="row d-flex justify-content-center">
                     <button 
                     type="button" 
                     className="btn btn-primary"
-                    
                     onClick={registerProject}>
                         Register Project    
                     </button>

@@ -7,23 +7,27 @@ api = Blueprint('api', __name__)
 # /users endpoints
 
 
-@api.route('/project_create', methods=['POST'])
+@api.route('/projects', methods=['POST'])
 def add_project():
-    if request.method == "POST":
-        data = request.json
-        if data.get("project_name") is None:
-            return jsonify({"message": "Wrong property"}), 400
-        if data.get("in_charge_of") is None:
-            return jsonify({"message": "Wrong property"}), 400
-        if data.get("assign_vas") is None:
-            return jsonify({"message": "Wrong property"}), 400
-        if data.get("client") is None:
-            return jsonify({"message": "Wrong property"}), 400
+    data = request.json
+    if data.get("project_name") is None:
+        return jsonify({"message": "Wrong property"}), 400
+    if data.get("account_manager_id") is None:
+        return jsonify({"message": "Wrong property"}), 400
+    if data.get("assistant_id") is None:
+        return jsonify({"message": "Wrong property"}), 400
+    if data.get("customer_id") is None:
+        return jsonify({"message": "Wrong property"}), 400
 
-        project = Project()
-        project = Project(project_name=data["project_name"], in_charge_of=data["in_charge_of"],
-                          assign_vas=data["assign_vas"], client=data["client"], project_description=data["project_description"])
+    project = Project.query.filter_by(
+        project_name=data.get("project_name")).first()
 
+    if project is not None:
+        return jsonify({"message": "The user all ready exist"})
+
+    if project is None:
+        project = Project(project_name=data["project_name"], account_manager_id=data["account_manager_id"],
+                          assistant_id=data["assistant_id"], customer_id=data["customer_id"], description=data["description"])
         db.session.add(project)
         try:
             db.session.commit()

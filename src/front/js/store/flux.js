@@ -10,22 +10,22 @@ const getState = ({ getStore, getActions, setStore }) => {
 			id: "",
       project: { 
         project_name : "",
-        project_description: "",
-        in_charge_of: "",
-        assign_vas: "",
-        client:""
+        account_manager_id: "",
+        assistant_id: "",
+        customer_id: "",
+        description:""
     },
     },
     actions: {
 
-      Projects : async(project) =>{
+      Project : async(project) =>{
         const store = getStore();
         const actions = getActions();
         try {
-          let response = await fetch(`${process.env.BACKEND_URL}/api/project_create`, {
+          let response = await fetch(`${process.env.BACKEND_URL}/api/regproject`, {
             method: "POST",
             headers: { "Content-Type": "application/json" },
-            body: JSON.stringify(user),
+            body: JSON.stringify(project),
         });
         if (response.ok) {
           console.log(project)
