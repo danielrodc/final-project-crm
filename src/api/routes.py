@@ -7,6 +7,28 @@ api = Blueprint('api', __name__)
 # /users endpoints
 
 
+@api.route('/projects/<string:project_name>', methods=['PUT'])
+def edit_project():
+    data = request.json
+    project = Project.query.filter_by(
+        project_name=data.get("project_name")).first()
+    db.session.delete(project)
+    db.session.commit()
+
+    for project in data:
+        project = Project(project_name=data["project_name"], account_manager_id=data["account_manager_id"],
+                          assistant_id=data["assistant_id"], customer_id=data["customer_id"], description=data["description"])
+        db.session.add(project)
+
+        try:
+            db.session.commit()
+            return jsonify(data), 201
+
+        except Exception as error:
+            print(error)
+            return jsonify({"message": error.args}), 500
+
+
 @api.route('/projects', methods=['POST'])
 def add_project():
     data = request.json
