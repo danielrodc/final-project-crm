@@ -7,12 +7,37 @@ const getState = ({ getStore, getActions, setStore }) => {
         last_name: "zangarini",
         role: "admin",
       },
-      BACKEND_URL: 'http://localhost:3001',
 			users: [],
-			id: ""
+			id: "",
+      project: { 
+        project_name : "",
+        project_description: "",
+        in_charge_of: "",
+        assign_vas: "",
+        client:""
+    },
     },
     actions: {
       // Use getActions to call a function within a fuction
+      Projects : async(project) =>{
+        const store = getStore();
+        const actions = getActions();
+        try {
+          let response = await fetch(`${process.env.BACKEND_URL}/api/projects`, {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify(user),
+        });
+        if (response.ok) {
+          console.log(project)
+          return true
+          }
+        } 
+        catch (err) {
+        console.log(err);
+        }
+      },
+
       Register : async (user) => {
         const store = getStore();
         const actions = getActions();
@@ -26,7 +51,8 @@ const getState = ({ getStore, getActions, setStore }) => {
           console.log(user)
           return true
           }
-        } catch (err) {
+        } 
+        catch (err) {
         console.log(err);
         }
       },
