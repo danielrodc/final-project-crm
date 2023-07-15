@@ -74,7 +74,7 @@ class Virtualassistant(db.Model):
 
 
 class Project(db.Model):
-    id = db.Column(db.Integer, primary_key=True)
+    project_id = db.Column(db.Integer, primary_key=True)
     project_name = db.Column(db.String(100), unique=False, nullable=False)
     account_manager_id = db.Column(
         db.Integer, db.ForeignKey('user.id'), nullable=False)
@@ -90,7 +90,7 @@ class Project(db.Model):
 
     def serialize(self):
         return {
-            "id": self.id,
+            "project_id": self.project_id,
             "project_name": self.project_name,
             "account_manager_id": self.account_manager_id,
             "assistant_id": self.assistant_id,
