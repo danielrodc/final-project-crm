@@ -50,7 +50,7 @@ export const Register = () => {
                     type="text"
                     required
                     className="form-control"
-                    id="lastNameInput"
+                    id="last_nameInput"
                     placeholder="Your Last Name"
                     value={user.last_name}
                     name = "last_name"

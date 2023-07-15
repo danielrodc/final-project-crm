@@ -6,12 +6,38 @@ const getState = ({ getStore, getActions, setStore }) => {
         last_name: "zangarini",
         role: "admin",
       },
-      users: [],
-      id: "",
+			users: [],
+			id: "",
+      project: { 
+        project_name : "",
+        account_manager_id: "",
+        assistant_id: "",
+        customer_id: "",
+        description:""
+    },
     },
     actions: {
-      // Use getActions to call a function within a fuction
-      Register: async (user) => {
+
+      Project : async(project) =>{
+        const store = getStore();
+        const actions = getActions();
+        try {
+          let response = await fetch(`${process.env.BACKEND_URL}/api/regproject`, {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify(project),
+        });
+        if (response.ok) {
+          console.log(project)
+          return true
+          }
+        } 
+        catch (err) {
+        console.log(err);
+        }
+      },
+
+      Register : async (user) => {
         const store = getStore();
         const actions = getActions();
         try {
@@ -24,8 +50,9 @@ const getState = ({ getStore, getActions, setStore }) => {
             console.log(user);
             return true;
           }
-        } catch (err) {
-          console.log(err);
+        } 
+        catch (err) {
+        console.log(err);
         }
       },
 
