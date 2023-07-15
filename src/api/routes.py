@@ -12,21 +12,25 @@ def edit_project():
     data = request.json
     project = Project.query.filter_by(
         project_id=data.get("project_id")).first()
-    # db.session.delete(project)
-    # db.session.commit()
 
-    # for project in data:
-    #     project = Project(project_name=data["project_name"], account_manager_id=data["account_manager_id"],
-    #                       assistant_id=data["assistant_id"], customer_id=data["customer_id"], description=data["description"])
-    #     db.session.add(project)
+    if data.get("project_name") is not None:
+        project.project_name = data["project_name"]
+    if data.get("account_manager_id") is not None:
+        project.account_manager_id = data["account_manager_id"]
+    if data.get("assistant_id") is not None:
+        project.project_name = data["assistant_id"]
+    if data.get("customer_id") is not None:
+        project.project_name = data["customer_id"]
+    if data.get("description") is not None:
+        project.project_name = data["description"]
 
-    #     try:
-    #         db.session.commit()
-    #         return jsonify(data), 201
+        try:
+            db.session.commit()
+            return jsonify(data), 201
 
-    #     except Exception as error:
-    #         print(error)
-    #         return jsonify({"message": error.args}), 500
+        except Exception as error:
+            print(error)
+            return jsonify({"message": error.args}), 500
 
 
 @api.route('/projects', methods=['POST'])
