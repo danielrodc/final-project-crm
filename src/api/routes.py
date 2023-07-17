@@ -7,6 +7,22 @@ api = Blueprint('api', __name__)
 # /users endpoints
 
 
+@api.route('/projects/<int:project_id>', methods=['GET'])
+def get_project(project_id=None):
+    data = request.jason
+
+    if project_id is not None:
+        projects = Project()
+        projects = Project.query.filter_by(
+            project_id=data.get("project_id")).first()
+        if projects is not None:
+            return jsonify(projects.serialize()), 200
+        else:
+            return jsonify({"message": "Project not found"}), 404
+    else:
+        return jsonify({"message": "bad request"}), 400
+
+
 @api.route('/projects/<int:project_id>', methods=['PUT'])
 def edit_project():
     data = request.json
