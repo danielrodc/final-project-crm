@@ -17,7 +17,7 @@ export const Create_project = () => {
     };
 
     function registerProject() {
-        actions.Register(project);
+        actions.Create_project(project);
     }
 
     return (
